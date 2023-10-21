@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor</title>
+    <link rel="stylesheet" href="styles.css">
+	<style>
+		
+		.code-editor 
+		{
+			width: 80%;
+			margin: 0 auto;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			padding: 10px;
+			font-family: monospace;
+		}
+
+		.toolbar 
+		{
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.button 
+		{
+			background-color: #0074d9;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			padding: 8px 12px;
+			cursor: pointer;
+		}
+
+		button:hover 
+		{
+			color: #0056b3;
+		}
+
+		.code-area 
+		{
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			margin-top: 10px;
+			min-height: 300px;
+			padding: 10px;
+			white-space: pre-wrap;
+			overflow-x: auto;
+		}
+
+		.locked 
+		{
+			background-color: #f2f2f2;
+			pointer-events: none;
+		}
+	</style>
+</head>
+<body>
+    <div class="code-editor">
+        <div class="toolbar">
+            <button id="copy-button">Copy</button>
+            <button id="save-button">Save</button>
+            <button id="lock-button">Lock</button>
+        </div>
+        <div class="code-area" contenteditable="true">
+            // Code Writer here..
+        </div>
+    </div>
+	
+    <script>
+		document.addEventListener('DOMContentLoaded', function () 
+		{
+			const copyButton = document.getElementById('copy-button');
+			const saveButton = document.getElementById('save-button');
+			const lockButton = document.getElementById('lock-button');
+			const codeArea = document.querySelector('.code-area');
+
+			copyButton.addEventListener('click', function ()
+			{
+				const codeToCopy = codeArea.innerText;
+				navigator.clipboard.writeText(codeToCopy).then(() => 
+				{
+					alert('Code copied to clipboard');
+				}).catch(err => 
+				{
+					console.error('Failed to copy code: ', err);
+				});
+			});
+
+			saveButton.addEventListener('click', function () 
+			{
+				// Implement your save functionality here
+			});
+
+			lockButton.addEventListener('click', function () 
+			{
+
+				codeArea.classList.toggle('locked');
+				lockButton.textContent = codeArea.classList.contains('locked') ? 'Unlock' : 'Lock';
+				codeArea.contentEditable = !codeArea.classList.contains('locked');
+			});
+		});
+
+	</script>
+</body>
+</html>
